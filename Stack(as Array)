@@ -1,4 +1,4 @@
-//Stack as Array
+//Queue as Array
 
 #include <stdio.h>
 #include <stdlib.h>
