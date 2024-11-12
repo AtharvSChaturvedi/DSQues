@@ -1,0 +1,135 @@
+//Single Linked List
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *next;
+};
+
+struct node *start;
+
+void create_list(int x);
+struct node *delete_from_start(struct node *start);
+void display(struct node *start);
+struct node *delete_from_end(struct node *start);
+void delete(int y);
+
+int main() {
+    int choice, d, n;
+    while (1) {
+        printf("\n1. Create\n");
+        printf("2. Delete from beginning\n");
+        printf("3. Delete from end\n");
+        printf("4. Delete a particular node\n");
+        printf("5. Display\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                printf("Enter number of nodes: ");
+                scanf("%d", &n);
+                for (int i = 0; i < n; i++) {
+                    printf("Enter data: ");
+                    scanf("%d", &d);
+                    create_list(d);
+                }
+                break;
+
+            case 2:
+                start = delete_from_start(start);
+                break;
+
+            case 3:
+                start = delete_from_end(start);
+                break;
+
+            case 4:
+                printf("Which data you want to delete: ");
+                scanf("%d", &d);
+                delete(d);
+                break;
+
+            case 5:
+                display(start);
+                break;
+
+            default:
+                printf("INVALID CHOICE");
+        }
+    }
+}
+
+void display(struct node *start) {
+    struct node *temp = start;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+}
+
+void create_list(int x) {
+    struct node *temp = (struct node *)malloc(sizeof(struct node));
+    temp->data = x;
+    temp->next = NULL;
+    struct node *ptr = start;
+    if (start == NULL) {
+        start = temp;
+    } else {
+        while (ptr->next != NULL) {
+            ptr = ptr->next;
+        }
+        ptr->next = temp;
+    }
+}
+
+struct node *delete_from_start(struct node *start) {
+    if (start == NULL) {
+        return NULL; 
+    }
+    struct node *ptr = start;
+    start = start->next;
+    free(ptr);
+    return start;
+}
+
+struct node *delete_from_end(struct node *start) {
+    if (start == NULL) {
+        return NULL; 
+    }
+    if (start->next == NULL) {
+        free(start);
+        return NULL; 
+    }
+    struct node *ptr = start;
+    struct node *prevptr;
+    while (ptr->next != NULL) {
+        prevptr = ptr;
+        ptr = ptr->next;
+    }
+    prevptr->next = NULL;
+    free(ptr);
+    return start;
+}
+
+void delete(int y) {
+    if (start == NULL) {
+        return; 
+    }
+    struct node *ptr = start;
+    struct node *prevptr = NULL;
+    while (ptr != NULL && ptr->data != y) {
+        prevptr = ptr;
+        ptr = ptr->next;
+    }
+    if (ptr == NULL) {
+        return; 
+    }
+    if (prevptr == NULL) {
+        start = ptr->next;
+    } else {
+        prevptr->next = ptr->next;
+    }
+    free(ptr);
+}
