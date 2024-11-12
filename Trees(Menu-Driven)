@@ -1,0 +1,146 @@
+//Operations on BST in Menu-Driven format
+//More operations are yet to be updated
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+    struct node *lchild;
+    int data;
+    struct node *rchild;
+};
+
+struct node* insert(struct node* root, int key){
+    struct node* ptr, *temp,*par=NULL;
+    ptr=root;
+    while(ptr!=NULL){
+        par=ptr;
+        if(key<ptr->data){
+            ptr=ptr->lchild;
+        }
+        else{
+            ptr=ptr->rchild;
+        }
+    }
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=key;
+    temp->lchild=NULL;
+    temp->rchild=NULL;
+    if(par==NULL){
+        root=temp;
+    }
+    else if(key<par->data){
+        par->lchild=temp;
+    }
+    else{
+        par->rchild=temp;
+    }
+    return root;
+};
+
+void pre(struct node*ptr){
+    if(ptr!=NULL){
+        printf("%d ",ptr->data);
+        pre(ptr->lchild);
+        pre(ptr->rchild);
+    }
+}
+
+void post(struct node*ptr){
+    if(ptr!=NULL){
+        post(ptr->lchild);
+        post(ptr->rchild);
+        printf("%d ",ptr->data);
+    }
+}
+
+void in(struct node*ptr){
+    if(ptr!=NULL){
+        in(ptr->lchild);
+        printf("%d ",ptr->data);
+        in(ptr->rchild);
+    }
+}
+
+int min(struct node* root) {
+    if (root == NULL) {
+        return -1;
+    }
+    while (root->lchild != NULL) {
+        root = root->lchild;
+    }
+    return root->data;
+}
+
+int max(struct node* root) {
+    if (root == NULL) {
+        return -1;
+    }
+    while (root->rchild != NULL) {
+        root = root->rchild;
+    }
+    return root->data;
+}
+
+struct node* search(struct node* root, int key) {
+    if (root == NULL || root->data == key) {
+        return root;
+    }
+    if (key < root->data) {
+        return search(root->lchild, key);
+    } else {
+        return search(root->rchild, key);
+    }
+}
+
+int main(){
+    struct node*root=NULL;
+    int key;
+    while(1){
+        printf("\n1.insert\n");
+        printf("2.preorder\n");
+        printf("3.postorder\n");
+        printf("4.inorder\n");
+        printf("5.min\n");
+        printf("6.max\n");
+        printf("7.search\n");
+        printf("8.exit\n");
+        int choice;
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+        switch(choice){
+            case 1:
+                printf("Enter element: ");
+                scanf("%d", &key);
+                root=insert(root,key);
+                break;
+            case 2:
+                pre(root);
+                break;
+            case 3:
+                post(root);
+                break;
+            case 4:
+                in(root);
+                break;
+            case 5:
+                printf("Min value: %d\n",min);
+                break;
+            case 6:
+                printf("Max value: %d\n",max);
+                break;
+            case 7:
+                printf("Enter key to search: ");
+                scanf("%d", &key);
+                if (search(root, key)) {
+                    printf("Key found\n");
+                } else {
+                    printf("Key not found\n");
+                }
+                break;
+            case 8:
+                exit(1);
+                break;
+        }
+    }
+}
