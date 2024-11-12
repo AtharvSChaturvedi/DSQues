@@ -1,0 +1,47 @@
+//Sparse Matrix
+
+#include <stdio.h>
+
+#define MAX 100
+
+void Sparse_Mat(int matrix[10][10], int rows, int cols, int row[MAX], int col[MAX], int val[MAX], int *size) {
+    int k=0;
+    for (int i=0;i<rows;i++) {
+        for (int j=0;j<cols;j++) {
+            if (matrix[i][j]!=0) {
+                row[k]=i;
+                col[k]=j;
+                val[k]=matrix[i][j];
+                k++;
+            }
+        }
+    }
+    *size=k;
+}
+
+void print_Mat(int row[MAX], int col[MAX], int val[MAX], int size) {
+    printf("Row\tCol\tValue\n");
+    for (int i=0;i<size;i++) {
+        printf("%d\t%d\t%d\n", row[i], col[i], val[i]);
+    }
+}
+
+int main() {
+    int matrix[10][10];
+    int rows, cols, size;
+    int row[MAX], col[MAX], val[MAX];
+    printf("Enter number of rows: ");
+    scanf("%d", &rows);
+    printf("Enter number of columns: ");
+    scanf("%d", &cols);
+    printf("Enter the values: ");
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<cols;j++){
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+    Sparse_Mat(matrix, rows, cols, row, col, val, &size);
+    print_Mat(row, col, val, size);
+
+    return 0;
+}
