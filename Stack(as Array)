@@ -1,0 +1,117 @@
+//Stack as Array
+
+#include<stdio.h>
+#include<stdlib.h>
+
+#define MAX 10
+
+void push(int);
+int pop();
+int peek();
+int display();
+
+void isFull();
+void isEmpty();
+
+int A[MAX], TOP;
+int main(){
+    int choice, data;
+    TOP=-1;
+    while(1){
+        printf("\n1.Push\n");
+        printf("2.Pop\n");
+        printf("3.isFull\n");
+        printf("4.isEmpty\n");
+        printf("5.Peek\n");
+        printf("6.Display\n");
+        printf("7.Quit\n");
+        printf("Enter yourt choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+        case 1:
+            printf("Enter data: ");
+            scanf("%d", &data);
+            push(data);
+            break;
+        case 2:
+            pop();
+            break;
+        case 3:
+            isFull();
+            break;
+        case 4:
+            isEmpty();
+            break;
+        case 5:
+            peek();
+            break;
+        case 6:
+            display();
+            break;
+        case 7:
+            exit(1);
+        default:
+            printf("IVALID CHOICE!");
+            break;
+        }
+    }
+}
+
+
+void push(int x){
+    if(TOP==MAX-1){
+        printf("Stack is full");
+        return;
+    }
+    TOP=TOP+1;
+    A[TOP]=x;
+}
+
+int pop(){
+    int x;
+    if(TOP==-1){
+        printf("Stack is empty");
+        return 1;
+    }
+    x=A[TOP];
+    TOP=TOP-1;
+    return x;
+}
+
+void isFull(){
+    if(TOP==MAX-1){
+        printf("Stack is Full\n");
+    }
+    else{
+        printf("Stack is not full\n");
+    }
+}
+
+void isEmpty(){
+    if(TOP==-1){
+        printf("Stack is empty\n");
+    }
+    else{
+        printf("Stck is not empty\n");
+    }
+}
+
+int peek(){
+    if(TOP==-1){
+        printf("Stack is empty");
+    }
+    else{
+        printf("%d ", A[TOP]);
+    }
+}
+
+int display(){
+    if(TOP==-1){
+        printf("Stack Underflow");
+    }
+     else{
+        for(int i=0;i<=TOP;i++){
+            printf("%d ", A[i]);
+        }
+    }
+}
