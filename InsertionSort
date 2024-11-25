@@ -1,0 +1,32 @@
+#include<Stdio.h>
+
+void insertionsort(int a[], int n){
+    int i,j,key;
+    for(i=1;i<n;i++){
+        key=a[i];
+        j=i-1;
+
+        while(j>=0 && key<a[j]){
+            a[j+1]=a[j];
+            j--;
+        }
+        a[j+1]=key;
+    }
+}
+
+
+void printarr(int a[], int size){
+    for(int k=0;k<=size-1;k++){
+        printf("%d ", a[k]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int A[]={1,7,9,2,5,6};
+    int n=sizeof(A)/sizeof(A[0]);
+
+    insertionsort(A,n);
+    printf("SORTED: \n");
+    printarr(A,n);
+}
